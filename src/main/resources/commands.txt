@@ -2,7 +2,7 @@
 #Create a Topic with multiple partitions
 
         ./kafka-topics.sh \
-            --zookeeper zookeeper:2181 \
+            --bootstrap-server localhost:9092 \
             --create \
             --topic kafka.learning.orders \
             --partitions 3 \
@@ -19,7 +19,7 @@
 ## Publishing Messages to Topics with keys
 
         ./kafka-console-producer.sh \
-            --bootstrap-server localhost:29092 \
+            --bootstrap-server localhost:9092 \
             --property "parse.key=true" \
             --property "key.separator=:" \
             --topic kafka.learning.orders
@@ -27,7 +27,7 @@
 ## Consume messages using a consumer group
 
         ./kafka-console-consumer.sh \
-            --bootstrap-server localhost:29092 \
+            --bootstrap-server localhost:9092 \
             --topic kafka.learning.orders \
             --group test-consumer-group \
             --property print.key=true \
@@ -37,7 +37,7 @@
 ## Check current status of offsets
 
         ./kafka-consumer-groups.sh \
-            --bootstrap-server localhost:29092 \
+            --bootstrap-server localhost:9092 \
             --describe \
             --all-groups
 

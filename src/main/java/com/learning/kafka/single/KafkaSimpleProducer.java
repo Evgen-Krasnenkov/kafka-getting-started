@@ -34,7 +34,7 @@ public class KafkaSimpleProducer {
 
             int startKey = (new Random()).nextInt(1000) ;
 
-            for( int i=startKey; i < startKey + 10; i++) {
+            for( int i=startKey; i < startKey + 20; i++) {
 
                 //Create a producer Record
                 ProducerRecord<String,String> kafkaRecord =
@@ -49,7 +49,7 @@ public class KafkaSimpleProducer {
                 //Publish to Kafka
                 simpleProducer.send(kafkaRecord);
 
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             }
         }
         catch(Exception e) {

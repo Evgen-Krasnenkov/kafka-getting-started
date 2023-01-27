@@ -1,9 +1,15 @@
 package com.learning.kafka.usecase;
 
+import kafka.security.auth.Topic;
+import org.apache.kafka.clients.admin.Admin;
+import org.apache.kafka.clients.admin.CreateTopicsResult;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Properties;
 import java.util.Random;
 
@@ -29,11 +35,16 @@ public class KafkaUseCaseProducer {
         //Create a Kafka producer from configuration
         KafkaProducer simpleProducer = new KafkaProducer(kafkaProps);
 
+
         //Publish 10 messages at 2 second intervals, with a random key
         try{
 
             int startKey = (new Random()).nextInt(1000) ;
-
+            Admin admin = Admin.create(kafkaProps);
+            int partitions = 4;
+            short replicationFactor = 1;
+            NewTopic newTopic = new NewTopic("kafka.usecase.students", partitions, replicationFactor);
+            CreateTopicsResult topics = admin.createTopics(Collections.singleton(newTopic));
             for( int i=startKey; i < startKey + 10; i++) {
 
                 //Create a producer Record
